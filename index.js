@@ -238,15 +238,6 @@ app.delete('/activitylist/delete/:id', (req, res) => {
 
 ////////////////////////////Dashboard///////////////////////////////////
 
-app.get('/activitylist/dashboard/column/:id', (req, res) => {
-  console.log('Fetch Act Data By Id');
-  const userId = req.params.id
-  ActivityModel.find({userId:userId})
-    .sort({ actType: 1 }) // 1 for ascending order, -1 for descending
-    .then((user) => res.json(user))
-    .catch((err) => res.json(err));
-});
-
 app.get('/sumofduration', async (req,res) => {
   ActivityModel.aggregate([
     {
