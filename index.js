@@ -1,4 +1,5 @@
 const express = require('express');
+const enforce = require('express-enforces-ssl');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -28,7 +29,7 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(enforce.HTTPS({ trustProtoHeader: true }));
 app.use(express.static('public'));
 
 const uri =
