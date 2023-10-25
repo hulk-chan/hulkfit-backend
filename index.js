@@ -7,7 +7,6 @@ const multer = require('multer');
 
 const { v4: uuidv4 } = require('uuid');
 const bcrypt = require('bcrypt');
-const UserModel = require("./models/User");
 const ActivityModel = require('./models/Activity');
 
 const storage = multer.diskStorage({
