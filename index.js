@@ -4,7 +4,6 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const UserModel = require('./models/User');
 const multer = require('multer');
-
 const { v4: uuidv4 } = require('uuid');
 const bcrypt = require('bcrypt');
 const ActivityModel = require('./models/Activity');
@@ -28,7 +27,6 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
-
 app.use(express.static('public'));
 
 const uri =
