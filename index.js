@@ -74,32 +74,32 @@ app.post('/login', async (req, res) => {
     }
   });
   
-  app.post('/signup', upload.single('image'), async (req, res) => {
-    console.log('User SignUp!!');
-  
-    const fullname = req.body.fullname;
-    const email = req.body.email;
-    const password = req.body.password;
-  
-    // Access the file path of the uploaded image
-    const image = req.file ? req.file.path : 'public/uploads/avatar.png';
-    console.log(image);
-  
-      const newUser = new UserModel({
-        fullname,
-        email,
-        password,
-        image:image
-      });
-  
-      try {
-        const savedUser = await newUser.save();
-        res.status(200).json(savedUser);
-        console.log(savedUser);
-      } catch (error) {
-        res.status(500).json({ message: 'Error saving user', error });
-      }
-  });
+app.post('/signup', upload.single('image'), async (req, res) => {
+  console.log('User SignUp!!');
+
+  const fullname = req.body.fullname;
+  const email = req.body.email;
+  const password = req.body.password;
+
+  // Access the file path of the uploaded image
+  const image = req.file ? req.file.path : 'public/uploads/avatar.png';
+  console.log(image);
+
+    const newUser = new UserModel({
+      fullname,
+      email,
+      password,
+      image:image
+    });
+
+    try {
+      const savedUser = await newUser.save();
+      res.status(200).json(savedUser);
+      console.log(savedUser);
+    } catch (error) {
+      res.status(500).json({ message: 'Error saving user', error });
+    }
+});
   
 /////////////////////////////////////////////////////////////////////
 
@@ -240,27 +240,6 @@ app.delete('/activitylist/delete/:id', (req, res) => {
 
 ////////////////////////////Dashboard///////////////////////////////////
 
-app.get('/activitylist/dashboard/pie/:id', (req, res) => {
-  const userId = req.params.id
-  //DashboardModel.find({userId:userId})
-  ActivityModel.aggregate([
-    {
-      $match: { userId: userId }
-    },
-    {
-      $group: { // aggregate must be $group
-        _id: '$actType', // first key of aggregate must be _id
-        totalDuration: { $sum: '$actDuration' }
-      }
-    },
-    {
-      $sort: { _id: 1 } // 1 for ascending order, -1 for descending
-    }
-  ])
-    .then((user) => res.json(user))
-    .catch((err) => res.json(err));
-});
-
 app.get('/activitylist/dashboard/column/:id', (req, res) => {
   console.log('Fetch Act Data By Id');
   const userId = req.params.id
@@ -381,6 +360,7 @@ app.get('/activitylist/dashboard/column/:id', (req, res) => {
     .catch((err) => res.json(err));
 });
 
+////////////////////////////Start Server///////////////////////////////////
 
 const port = 4000;
 app.listen(port, () => {
